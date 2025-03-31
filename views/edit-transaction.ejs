@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transaction History</title>
+  <!-- Include Tailwind CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-black">
+  <nav class="text-white p-4">
+    <div class="container mx-auto flex justify-between">
+      <h1 class="text-xl font-bold">DIGITALMAXTRD</h1>
+      <div class="flex items-center">
+
+        <button class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 focus:outline-none" onclick="logout()">
+          Logout
+        </button>
+      </div>
+    </div>
+  </nav>
+  <div class="container mx-auto py-8">
+    <div class="mb-3"><a href="/dashboard"><span class="text-white">Dashboard / </span></a><span
+        class="text-yellow-600">Transactions</span></div>
+    <div class="grid grid-cols-1 md:grid-cols-5 gap-6">
+      <!-- Sidebar -->
+
+      <!-- Sidebar (if needed) -->
+
+      <!-- Main Content -->
+      <div class="md:col-span-5 p-4 bg-white shadow-md rounded-md">
+        <!-- Transaction History Section -->
+        <div class="p-4 bg-gray-900 shadow-md rounded-md">
+          <h2 class="text-lg text-white mb-4">Edit Transaction for <%= transaction.userId %>
+          </h2>
+          <form id="edit-form" action="/updateTransaction/<%= transaction.id %>" method="POST">
+            <div class="mb-4">
+              <label class="block text-white font-bold mb-1" for="coin">Coin:</label>
+              <input type="text" id="coin" name="coin" value="<%= transaction.coin %>"
+                class="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2 text-white placeholder-gray-500">
+            </div>
+
+            <div class="mb-4">
+              <label class="block text-white font-bold mb-1" for="status">Status:</label>
+              <select id="status" name="status"
+                class="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2 text-white placeholder-gray-500">
+                <option value="Pending" <%=transaction.status==='Pending' ? 'selected' : '' %>>Pending</option>
+                <option value="Approved" <%=transaction.status==='Approved' ? 'selected' : '' %>>Approved</option>
+                <option value="Declined" <%=transaction.status==='Declined' ? 'selected' : '' %>>Declined</option>
+              </select>
+            </div>
+
+            <div class="mb-4">
+              <label class="block text-white font-bold mb-1" for="type">Type:</label>
+              <select id="type" name="type"
+                class="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2 text-white placeholder-gray-500">
+                <option value="Deposit" <%=transaction.type==='Deposit' ? 'selected' : '' %>>Deposit</option>
+                <option value="Withdrawal" <%=transaction.type==='Withdrawal' ? 'selected' : '' %>>Withdrawal</option>
+              </select>
+            </div>
+
+            <div class="mb-4">
+              <label class="block text-white font-bold mb-1" for="amount">Amount:</label>
+              <input type="number" id="amount" name="amount" value="<%= transaction.amount %>"
+                class="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2 text-white placeholder-gray-500">
+            </div>
+
+
+            <input type="text" hidden id="userId" name="userId" value="<%= transaction.userId %>"
+              class="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2 text-white placeholder-gray-500">
+
+            <!-- Add other input fields for other transaction properties -->
+            <button type="submit" class="bg-yellow-500 hover:bg-yellow-400 text-white font-bold py-2 px-4 rounded">
+              Save
+            </button>
+          </form>
+          <a class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 mt-2 block text-center rounded"
+            href="/transactions">Back to Transactions</a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function logout() {
+      window.location.href = "/logout"; // Redirect to the logout route when clicked
+    }
+  </script>
+</body>
+
+</html>

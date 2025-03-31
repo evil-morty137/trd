@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customer Support</title>
+  <!-- Include Tailwind CSS via CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gradient-to-r from-green-400 to-blue-500">
+  <div class="container mx-auto mt-20">
+    <!-- Chat Container -->
+    <div class="max-w-md mx-auto">
+      <!-- Chat Header -->
+      <div class="bg-white rounded-lg shadow-lg p-4">
+        <h1 class="text-2xl font-semibold">Digital Max Trade Customer Support</h1>
+      </div>
+
+      <!-- Chat Messages (WhatsApp Style) -->
+      <!-- Chat Messages (WhatsApp Style) -->
+      <!-- Inside your EJS template -->
+      <div class="bg-white rounded-lg shadow-lg p-4 mt-4">
+        <ul id="message-list">
+          <!-- Messages will be added here dynamically -->
+          <% messages.forEach(function(message) { %>
+            <li class="mb-2">
+              <div
+                class="<%= message.type === 'admin' ? 'flex items-center justify-end' : 'flex items-center justify-start' %>">
+                <div class="bg-green-400 w-8 h-8 rounded-full flex items-center justify-center text-white mr-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd"
+                      d="M10 0a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16zm-1.293-4.293a1 1 0 0 1 1.414-1.414l2.998 2.998 4.997-4.996a1 1 0 1 1 1.414 1.414l-5.7 5.7a1 1 0 0 1-1.418.008l-3.292-3.292a1 1 0 0 1-.002-1.414z" />
+                  </svg>
+                </div>
+                <div class="<%= message.type === 'admin' ? 'bg-gray-200' : 'bg-blue-200' %> p-2 rounded-lg text-right">
+                  <p class="text-gray-800">
+                    <%= message.text %>
+                  </p>
+                  <p class="text-gray-500 text-xs">
+                    <%= new Date(message.createdAt).toLocaleString(undefined, { hour: '2-digit' , minute: '2-digit' })
+                      %>
+                  </p>
+                </div>
+              </div>
+            </li>
+            <% }); %>
+        </ul>
+      </div>
+
+
+
+      <!-- Chat Input -->
+      <div class="bg-white rounded-lg shadow-lg p-4 mt-4">
+        <form action="/replychats" method="post" class="flex">
+          <input type="text" id="userId" name="userId" value="<%= messageId %>" hidden>
+          <input type="text" id="text" name="text"
+            class="flex-grow border rounded-l-lg p-2 focus:outline-none focus:ring focus:border-blue-300"
+            placeholder="Type a message...">
+          <button id="send-button"
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-r-lg">Send</button>
+        </form>
+      </div>
+      <a href="/dashboard">Back to dashboard</a>
+    </div>
+  </div>
+
+</body>
+
+</html>

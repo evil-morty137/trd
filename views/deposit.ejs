@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Deposit</title>
+  <!-- Include Tailwind CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+  
+</head>
+<body class="bg-black">
+  <nav class="text-white p-4">
+    <div class="container mx-auto flex justify-between">
+      <h1 class="text-xl font-bold">DIGITALMAXTRD</h1>
+      <div class="flex items-center">
+        
+        <button
+          class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 focus:outline-none"
+          onclick="logout()"
+        >
+          Logout
+        </button>
+      </div>
+    </div>
+  </nav>
+  
+  <div class="container mx-auto py-8">
+    <div class="grid grid-cols-1 md:grid-cols-5 gap-6">
+      <!-- Sidebar -->
+      <div class="md:col-span-1 p-4 bg-white shadow-md rounded-md">
+        <h2 class="text-lg font-semibold mb-4">Navigation</h2>
+        <ul class="space-y-2">
+          <li><a href="/dashboard" class="hover:underline">Dashboard</a></li>
+          <li><a href="/deposit" class="hover:underline">Deposit</a></li>
+          <li><a href="/withdraw" class="hover:underline">Withdrawal</a></li>
+          <li><a href="/history" class="hover:underline">History</a></li>
+          <!-- Add more navigation links here -->
+        </ul>
+      </div>
+      
+      <!-- Main Content -->
+      <div class="md:col-span-4 p-4 bg-white shadow-md rounded-md">
+        <!-- Deposit Section -->
+        <div class="p-4 bg-gray-900 shadow-md rounded-md">
+          <h2 class="text-lg text-white mb-4">Welcome back, <span class="font-bold"><%= user.username %></span></h2>
+          <!-- Information Card -->
+          <div class="bg-white p-4 rounded-md shadow-md">
+            <h3 class="text-lg font-semibold mb-2">Steps to Make a Deposit</h3>
+            <ol class="list-decimal pl-4">
+              <li>Select the cryptocurrency you want to deposit from the dropdown.</li>
+              <li>Enter the amount you wish to deposit.</li>
+              <li>Click the "Deposit" button.</li>
+              <li>Follow the provided instructions to complete the deposit process.</li>
+            </ol>
+          </div>
+          <!-- Balances Section -->
+          <div class="">
+            <div class="mb-6">
+              <h2 class="text-lg text-white font-semibold mb-2">Deposit</h2>
+              <form method="post" action="/deposit">
+                <div class="flex items-center space-x-2">
+                  <input type="number" name="amount" class="border rounded-md px-3 py-2 w-1/2" placeholder="Amount">
+                  <select class="border rounded-md px-3 py-2 w-1/2" name="coin">
+                    <option value="eth">ETH</option>
+                    <option value="btc">BTC</option>
+                    <option value="usdt">USDT</option>
+                  </select>
+                </div>
+                <button class="mt-2 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md">Deposit</button>
+              </form>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    function logout() {
+      window.location.href = "/logout"; // Redirect to the logout route when clicked
+    }
+  </script>
+</body>
+</html>

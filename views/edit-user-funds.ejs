@@ -1,0 +1,77 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transaction History</title>
+  <!-- Include Tailwind CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-black">
+  <nav class="text-white p-4">
+    <div class="container mx-auto flex justify-between">
+      <h1 class="text-xl font-bold">DIGITALMAXTRD</h1>
+      <div class="flex items-center">
+        
+        <button
+          class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 focus:outline-none"
+          onclick="logout()"
+        >
+          Logout
+        </button>
+      </div>
+    </div>
+  </nav>
+   <div class="container mx-auto py-8">
+    <div class="mb-3"><a href="/dashboard"><span class="text-white">Dashboard / </span></a><span class="text-yellow-600">Transactions</span></div>
+    <div class="grid grid-cols-1 md:grid-cols-5 gap-6">
+      <!-- Sidebar -->
+     
+      <!-- Sidebar (if needed) -->
+      
+      <!-- Main Content -->
+      <div class="md:col-span-5 p-4 bg-white shadow-md rounded-md">
+        <!-- Transaction History Section -->
+        <div class="p-4 bg-gray-900 shadow-md rounded-md">
+            <h2 class="text-lg text-white mb-4">Edit Transaction for <%= transaction.userId %></h2>
+            <form id="edit-form" action="/update-user-funds/<%= transaction.id %>" method="POST">
+              <div class="mb-4">
+                <label class="block text-white font-bold mb-1" for="bitcoin">Bitcoin:</label>
+                <input type="text" id="btc" name="btc" value="<%= transaction.btc %>"
+                    class="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2 text-white placeholder-gray-500">
+            </div>
+          
+                
+                <div class="mb-4">
+                    <label class="block text-white font-bold mb-1" for="ethereum">Ethereum:</label>
+                    <input type="text" id="eth" name="eth" value="<%= transaction.eth %>"
+                        class="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2 text-white placeholder-gray-500">
+                </div>
+                <div class="mb-4">
+                  <label class="block text-white font-bold mb-1" for="ethereum">USDT:</label>
+                  <input type="text" id="usdt" name="usdt" value="<%= transaction.usdt %>"
+                      class="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2 text-white placeholder-gray-500">
+              </div>
+                <!-- Add other input fields for other transaction properties -->
+                <button type="submit" class="bg-yellow-500 hover:bg-yellow-400 text-white font-bold py-2 px-4 rounded">
+                    Save
+                </button>
+            </form>
+            <a class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 mt-2 block text-center rounded"
+                href="/transactions">Back to Transactions</a>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    function logout() {
+      window.location.href = "/logout"; // Redirect to the logout route when clicked
+    }
+  </script>
+</body>
+</html>
+

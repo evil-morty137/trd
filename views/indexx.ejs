@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <!-- Include Tailwind CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <!-- Include Heroicons -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/@heroicons/vue@1.0.4/dist/heroicons.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+      /* Adjust spacing and padding as needed */
+
+   
+  
+      .nav-active {
+        display: block;
+      }
+      .nav-hidden {
+        display: none;
+      }
+      body {
+      font-family: Arial, sans-serif;
+    }
+
+    #cryptoTable {
+      border-collapse: collapse;
+      width: 80%;
+      margin: auto;
+    }
+
+    #cryptoTable th,
+    #cryptoTable td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: center;
+    }
+
+    #cryptoTable th {
+      background-color: #f2f2f2;
+      font-weight: bold;
+    }
+    .image-section {
+      text-align: center;
+      margin: 50px auto;
+    }
+    .contact-section {
+      position: relative;
+      padding: 100px 0;
+      text-align: center;
+      background: url('https://images.unsplash.com/photo-1639762681485-074b7f938ba0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2232&q=80') center/cover no-repeat fixed;
+    }
+
+    .contact-content {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .contact-form {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .contact-form input[type="text"],
+    .contact-form textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .contact-form button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .footer {
+      background-color: #333;
+      color: white;
+      padding: 20px 0;
+      height: 35vh;
+      text-align: center;
+    }
+
+    .footer a {
+      color: white;
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+    
+    .pricing-section {
+      padding: 80px 0;
+      text-align: center;
+    }
+
+    .pricing-tier {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 20px;
+      display: inline-block;
+      width: 20%; /* Reduced width */
+      height: 400px; /* Increased height */
+      vertical-align: top;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .basic-tier {
+      /* background-color: #f5f5f5; */
+      border-color: greenyellow;
+    }
+
+    .pro-tier {
+      border-color: blue;
+      /* background-color: #ffe6cc; */
+    }
+
+    .premium-tier {
+      border-color: yellow;
+      /* background-color: #e0faff; */
+    }
+
+    .pricing-tier h3 {
+      margin: 0;
+      padding-bottom: 10px;
+      color: #333;
+    }
+
+    .pricing-tier p {
+      color: #666;
+    }
+
+    .pricing-tier .price {
+      font-size: 18px;
+      font-weight: bold;
+      color: #007bff;
+      margin: 10px 0;
+    }
+
+    .pricing-tier .features {
+      list-style: none;
+      padding: 0;
+    }
+
+    .pricing-tier .features li {
+      margin-bottom: 10px;
+    }
+
+    .cta-button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .cta-button:hover {
+      background-color: #0056b3;
+    }
+    .about-section {
+      display: flex;
+      padding: 80px 0;
+      text-align: center;
+    }
+
+    .about-image {
+      flex: 1;
+      /* height: 100vh; */
+      background-image: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1771&q=80');
+      background-size: cover;
+      background-position: center;
+    }
+
+    .about-text {
+      flex: 2;
+      /* background-color: #f5f5f5; */
+      padding: 40px;
+      text-align: center;
+    }
+
+    .about-text h2 {
+      margin-top: 0;
+      color: #333;
+      font-size: 24px;
+    }
+
+    .about-text p {
+      color: #666;
+      font-size: 18px;
+    }
+    .subscription-section {
+      /* background-color: #f5f5f5; */
+      padding: 80px 0;
+      text-align: center;
+    }
+
+    .subscription-content {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .subscription-title {
+      font-size: 45px;
+      font-weight: bolder;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .subscription-description {
+      font-size: 16px;
+      color: #666;
+      margin-bottom: 40px;
+    }
+
+    .subscription-form {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .subscription-input {
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      width: 70%;
+    }
+
+    .subscription-button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 20px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .subscription-button:hover {
+      background-color: #0056b3;
+    }
+    .convert-picture-section {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 80px 0;
+      text-align: center;
+    }
+
+    .convert-card {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      display: flex;
+      width: 70%;
+    }
+
+    .convert-content {
+      flex: 1;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .convert-button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+
+    .convert-button:hover {
+      background-color: #0056b3;
+    }
+
+    .convert-image {
+      flex: 1;
+      padding: 20px;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
+
+    .convert-image img {
+      max-width: 100%;
+      max-height: 100%;
+      border-radius: 8px;
+    }
+    @media (max-width: 640px) {
+      body {
+        font-size: 16px;
+      }
+
+      .md:flex {
+        flex-direction: column;
+      }
+
+      .md:w-1/2 {
+        width: 100%;
+      }
+
+      .convert-card,
+      .pricing-tier {
+        width: 100%;
+        margin: 20px 0;
+      }
+    }
+    </style>
+  </head>
+
+  <body class="bg-white">
+    <nav class="bg-black">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+          <div class="flex-shrink-0">
+            <!-- Logo or Branding -->
+            <a href="#" class="text-white font-bold text-xl">Your Logo</a>
+          </div>
+          <div class="hidden md:block">
+            <!-- Navbar links -->
+            <ul class="ml-4 flex space-x-8">
+              <li>
+                <a href="#" class="text-gray-300 hover:text-white">Home</a>
+              </li>
+              <li>
+                <a href="#" class="text-gray-300 hover:text-white">About</a>
+              </li>
+              <li>
+                <a href="#" class="text-gray-300 hover:text-white">Services</a>
+              </li>
+              <li>
+                <a href="#" class="text-gray-300 hover:text-white">Pricing</a>
+              </li>
+              <li>
+                <a href="#" class="text-gray-300 hover:text-white">FAQs</a>
+              </li>
+              <li>
+                <a href="#" class="text-gray-300 hover:text-white">Contact</a>
+              </li>
+            </ul>
+            <button class="bg-yellow-600 hover:bg-yellow-600 text-white font-semibold py-4 px-6 my-2 rounded-sm">
+              Get Started Now
+            </button>
+          </div>
+          
+          <!-- Mobile menu button -->
+          <div class="md:hidden">
+            <button
+              id="mobile-menu-button"
+              class="text-white focus:outline-none"
+            >
+              <svg
+                class="h-6 w-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                ></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <div class="md:flex p-8">
+      <div class="md:w-1/2 pr-8 my-auto mx-4">
+        <h1 class="text-black text-3xl font-bold mb-4">A DECENTRALIZED BLOCKCHAIN INFRASTRUCTURE TRADING AND INVESTMENT PLATFORM</h1>
+        <p class="text-gray-800 text-xl">Trading and investment platform for cryptocurrencies, foreign exchange, binary options,
+           and CFDs that is decentralized and based on blockchain technology. 
+          With the use of blockchain technology, we provide simple, efficient, and secure trading and investment choices.</p>
+          <button class="bg-yellow-600 hover:bg-blue-600 text-white font-semibold py-4 px-6 my-2 rounded-sm">
+            Get Started Now
+          </button>
+      </div>
+      <div class="w-1/2">
+        <img src="https://img.freepik.com/free-vector/cryptocurrency-blockchain-isometric-composition_1284-20548.jpg?w=1380&t=st=1691621163~exp=1691621763~hmac=4c858a201251ad87df0e014adb50f2e48850b7db5339df7d7ddcb5c3f3a9f461" alt="Image" class="w-full rounded-lg">
+      </div>
+    </div>
+    <div class="about-section mx-4">
+      <div class="about-image"></div>
+      <div class="about-text mx-auto">
+        <h2>About Us</h2>
+        <p>Digital Crest Trade is a fully registered online investing platform with all required authorities. 
+          To minimize losses and increase returns for clients, our team of experts delivers secure, intelligent 
+          trading.Digital Crest Trade is one of the most innovative technologies since the advent of the Internet. 
+          Digital Crest Trade fervently supports financial independence and the freedom that Bitcoin grants users 
+          worldwide to choose participate in a permissionless, decentralized network that allows people the capacity 
+          to avoid being marginalized by authorities and financial institutions. We cordially invite you to the Digital 
+          Crest Trade, an online platform for investing in cryptocurrencies, where our customers can deposit their Bitcoin,
+           Ethereum, and Litecoin holdings in order to benefit from stable, risk-free long-term gains. With an emphasis on 
+           mining and trading cryptocurrencies, Digital Crest Trade has a lot of experience and in-depth knowledge of the stock and digital asset markets.</p>
+      </div>
+    </div>
+    <h1 class="text-black text-3xl font-bold mb-4 text-center">Services We Provide</h1>
+    <div class="flex justify-center space-x-8 p-8">
+      <!-- Mining Card -->
+      
+      <div class="bg-white shadow-md rounded-lg p-6 w-64">
+        <img src="https://cdn4.iconfinder.com/data/icons/bitcoin-mining-and-more/405/Asset_1240-128.png" alt="Mining Icon" class="w-12 h-12 mx-auto mb-4">
+        <h3 class="text-xl font-semibold mb-2">Mining</h3>
+        <p class="text-gray-600">Earn cryptocurrencies through mining.</p>
+      </div>
+    
+      <!-- Trading Card -->
+      <div class="bg-white shadow-md rounded-lg p-6 w-64">
+        <img src="https://cdn0.iconfinder.com/data/icons/online-business-45/512/trading_stock_crypto_market_blockchain_cryptocurrency_finance-512.png" alt="Trading Icon" class="w-12 h-12 mx-auto mb-4">
+        <h3 class="text-xl font-semibold mb-2">Trading</h3>
+        <p class="text-gray-600">Buy and sell cryptocurrencies on exchanges.</p>
+      </div>
+    
+      <!-- Swapping Card -->
+      <div class="bg-white shadow-md rounded-lg p-6 w-64">
+        <img src="https://cdn0.iconfinder.com/data/icons/crypto-defi-3/64/fiat_money_currency_exchange_swap_trading_bitcoin_transaction_cryptocurrency_trade_barter-128.png" alt="Swapping Icon" class="w-12 h-12 mx-auto mb-4">
+        <h3 class="text-xl font-semibold mb-2">Exchange</h3>
+        <p class="text-gray-600">Swap one cryptocurrency for another.</p>
+      </div>
+    
+      <!-- Investing Card -->
+      <div class="bg-white shadow-md rounded-lg p-6 w-64">
+        <img src="https://cdn0.iconfinder.com/data/icons/business-finance-v2-0/64/bank-chart-budget-graph-financial-128.png" alt="Investing Icon" class="w-12 h-12 mx-auto mb-4">
+        <h3 class="text-xl font-semibold mb-2">Investing</h3>
+        <p class="text-gray-600">Invest in cryptocurrencies for potential returns.</p>
+      </div>
+    </div>
+    <div class="convert-picture-section">
+      <div class="convert-card">
+        <div class="convert-content">
+          <h1 class="text-black text-6xl font-bold mb-4 text-center mt-28">Crypto Currency Converter</h1>
+          <button class="convert-button">Convert Now</button>
+        </div>
+        <div class="convert-image">
+          <img src="https://cdn.pixabay.com/photo/2018/04/25/10/16/blockchain-3349148_1280.jpg" alt="Image">
+        </div>
+      </div>
+    </div>
+    <h1 class="text-black text-3xl font-bold mb-4 text-center mt-28">Market Data</h1>
+    <!-- Chart -->
+    <table id="cryptoTable" border="1">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Cryptocurrency</th>
+          <th>Price (USD)</th>
+          <th>Market Cap (USD)</th>
+          <th>24h Volume (USD)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Data will be inserted here -->
+      </tbody>
+    </table>
+      <canvas id="priceChart" width="400" height="200"></canvas>
+      <div class="pricing-section">
+        <h1 class="text-black text-3xl font-bold mb-4">Pricing</h1>
+        <div class="pricing-tier basic-tier">
+          <h3>Basic</h3>
+          <p>For beginners</p>
+          <div class="price">Minimum Deposit - 0.5 BTC</div>
+          <div class="price">Maximum Deposit - 1 BTC</div>
+          <ul class="features">
+            <li>Basic Market Analysis</li>
+            <li>Live Support</li>
+            <li>Limited Signals</li>
+          </ul>
+          <a href="#" class="cta-button">Get Started</a>
+        </div>
+    
+        <div class="pricing-tier pro-tier">
+          <h3>Pro</h3>
+          <p>For experienced traders</p>
+          <div class="price">Minimum Deposit - 1 BTC</div>
+          <div class="price">Maximum Deposit - 2 BTC</div>
+          <ul class="features">
+            <li>Advanced Market Analysis</li>
+            <li>24/7 Support</li>
+            <li>Full Signals Access</li>
+          </ul>
+          <a href="#" class="cta-button">Get Started</a>
+        </div>
+    
+        <div class="pricing-tier premium-tier">
+          <h3>Premium</h3>
+          <p>For professionals</p>
+          <div class="price">Minimum Deposit - 3 BTC</div>
+          <div class="price">Maximum Deposit - UNLIMITED BTC</div>
+          <ul class="features">
+            <li>Expert Market Analysis</li>
+            <li>Personal Advisor</li>
+            <li>Exclusive Signals</li>
+          </ul>
+          <a href="#" class="cta-button">Get Started</a>
+        </div>
+      </div>
+
+      <div class="contact-section">
+        <div class="contact-content">
+          <h2>Contact Us</h2>
+          <p>Please use the form below to get in touch with us.</p>
+    
+          <div class="contact-form">
+            <input type="text" placeholder="Your Name">
+            <input type="text" placeholder="Your Email">
+            <textarea placeholder="Your Message"></textarea>
+            <button>Send</button>
+          </div>
+        </div>
+      </div>
+      <div class="subscription-section">
+        <div class="subscription-content">
+          <div class="subscription-title">Be part of the ecosystem of the future!</div>
+          <div class="subscription-description">Stay updated with the latest news and offers.</div>
+          <form class="subscription-form">
+            <input type="email" class="subscription-input" placeholder="Enter your email address">
+            <button type="submit" class="subscription-button">Subscribe</button>
+          </form>
+        </div>
+      </div>
+      <div class="footer">
+        <div class="mt-28">
+          <p>&copy; 2025 Your Broker. All rights reserved.</p>
+          <p><a href="#">Terms of Use</a> | <a href="#">Privacy Policy</a> | <a href="#">Disclaimer</a></p>
+          <p>123 Broker Street, City, Country | Phone: +1 (123) 456-7890 | Email: info@yourbroker.com</p>
+        </div>
+        
+      </div>
+  </body>
+  <script>
+    const cryptoTable = document.getElementById('cryptoTable');
+
+    function fetchCryptoInfo(symbol) {
+      const apiKey = 'YOUR_API_KEY';
+      const apiUrl = `https://api.coingecko.com/api/v3/coins/${symbol}`;
+
+      return fetch(apiUrl)
+        .then(response => response.json());
+    }
+
+    function displayCryptoInfo(info) {
+      const row = document.createElement('tr');
+
+      const iconCell = document.createElement('td');
+      const icon = document.createElement('img');
+      icon.src = info.image.small; // URL to the small-sized icon
+      icon.className = 'icon';
+      iconCell.appendChild(icon);
+      row.appendChild(iconCell);
+
+      const nameCell = document.createElement('td');
+      nameCell.textContent = info.name;
+      row.appendChild(nameCell);    
+
+      const priceCell = document.createElement('td');
+      priceCell.textContent = `$${info.market_data.current_price.usd}`;
+      row.appendChild(priceCell);
+
+      const marketCapCell = document.createElement('td');
+      marketCapCell.textContent = `$${info.market_data.market_cap.usd}`;
+      row.appendChild(marketCapCell);
+
+      const volumeCell = document.createElement('td');
+      volumeCell.textContent = `$${info.market_data.total_volume.usd}`;
+      row.appendChild(volumeCell);
+
+      cryptoTable.querySelector('tbody').appendChild(row);
+    }
+
+    // Fetch and display Bitcoin info
+    fetchCryptoInfo('bitcoin')
+      .then(info => {
+        displayCryptoInfo(info);
+      })
+      .catch(error => {
+        console.error('Error fetching info:', error);
+      });
+
+    // Fetch and display Ethereum info
+    fetchCryptoInfo('ethereum')
+      .then(info => {
+        displayCryptoInfo(info);
+      })
+      .catch(error => {
+        console.error('Error fetching info:', error);
+      });
+
+    // You can add more cryptocurrencies here in a similar fashion
+
+  </script>
+ <script>
+  const chatElement = document.getElementById('chat');
+
+  function fetchCryptoPrice(symbol) {
+    const apiKey = 'YOUR_API_KEY';
+    const apiUrl = `https://api.coingecko.com/api/v3/simple/price?ids=${symbol}&vs_currencies=usd`;
+
+    return fetch(apiUrl)
+      .then(response => response.json())
+      .then(data => data[symbol].usd);
+  }
+
+  function displayMessage(message) {
+    const messageElement = document.createElement('div');
+    messageElement.textContent = message;
+    chatElement.appendChild(messageElement);
+  }
+
+  // Fetch and display Bitcoin price
+  fetchCryptoPrice('bitcoin')
+    .then(price => {
+      const message = `Bitcoin price: $${price}`;
+      displayMessage(message);
+    })
+    .catch(error => {
+      console.error('Error fetching price:', error);
+    });
+
+  // Fetch and display Ethereum price
+  fetchCryptoPrice('ethereum')
+    .then(price => {
+      const message = `Ethereum price: $${price}`;
+      displayMessage(message);
+    })
+    .catch(error => {
+      console.error('Error fetching price:', error);
+    });
+</script>
+  <script>
+    const mobileMenuButton = document.getElementById("mobile-menu-button");
+    const mobileMenu = document.querySelector(".nav-hidden");
+
+    mobileMenuButton.addEventListener("click", () => {
+      mobileMenu.classList.toggle("nav-active");
+    });
+  </script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</html>

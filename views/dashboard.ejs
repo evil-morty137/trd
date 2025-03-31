@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - DIGITAL MAX TRADE</title>
+  <!-- Include Tailwind CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+
+</head>
+
+<body class="bg-black">
+  <nav class="text-white p-4">
+    <div class="container mx-auto flex justify-between">
+      <h1 class="text-xl font-bold">DIGITAL MAX TRADE</h1>
+      <div class="flex items-center">
+        <!-- <span class="text-gray-300 text-sm mr-4"
+          >Welcome back,
+          <span class="font-bold"><%= user.username %></span></span
+        > -->
+        <button class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 focus:outline-none" onclick="logout()">
+          Logout
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container mx-auto py-8">
+    <div class="grid grid-cols-1 md:grid-cols-5 gap-6">
+      <!-- Sidebar -->
+      <div class="md:col-span-1 p-4 bg-white shadow-md rounded-md">
+        <h2 class="text-lg font-semibold mb-4">Navigation</h2>
+        <ul class="space-y-2">
+          <li><a href="/dashboard" class="hover:underline">Dashboard</a></li>
+          <li><a href="/deposit" class="hover:underline">Deposit</a></li>
+          <li><a href="/withdraw" class="hover:underline">Withdrawal</a></li>
+          <li><a href="/history" class="hover:underline">History</a></li>
+          <li><a href="/support" class="hover:underline">Chat Support</a></li>
+          <% if (user.email=="info@digitalmaxtrd.com" || user.email=="esanni5@gmail.com" ) { %>
+            <!-- Display only if user is an admin -->
+            <li><a href="/transactions" class="hover:underline">Admin Transactions</a></li>
+            <li><a href="/chats" class="hover:underline">Admin Chat support</a></li>
+            <% } %>
+
+              <!-- Add more navigation links here -->
+        </ul>
+      </div>
+
+      <!-- Main Content -->
+      <div class="md:col-span-4 p-4 bg-white shadow-md rounded-md">
+        <!-- Deposit Section -->
+        <div class="p-4 bg-gray-900 shadow-md rounded-md">
+          <h2 class="text-lg text-white mb-4">Welcome back, <span class="font-bold">
+              <%= user.username %>
+            </span></h2>
+          <!-- Balances Section -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-blue-100 p-4 rounded-md">
+              <h3 class="text-lg font-semibold mb-2">ETH Balance</h3>
+              <p class="text-xl font-bold">$<%= user.eth %>.00</p>
+            </div>
+            <div class="bg-green-100 p-4 rounded-md">
+              <h3 class="text-lg font-semibold mb-2">BTC Balance</h3>
+              <p class="text-xl font-bold">$<%= user.btc %>.00</p>
+            </div>
+            <div class="bg-yellow-100 p-4 rounded-md">
+              <h3 class="text-lg font-semibold mb-2">USDT Balance</h3>
+              <p class="text-xl font-bold">$<%= user.usdt %>.00</p>
+            </div>
+          </div>
+
+          <!-- Add more sections for other features -->
+          <div class="mt-6">
+            <canvas id="cryptoChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      async function fetchMarketPrices() {
+        try {
+          const response = await axios.get('https://api.coingecko.com/api/v3/simple/price?ids=ethereum,bitcoin,tether,cardano,solana,polkadot,ripple,binancecoin,ethereum-classic,chainlink&vs_currencies=usd');
+          return response.data;
+        } catch (error) {
+          console.error('Error fetching market prices:', error);
+          throw error;
+        }
+      }
+
+      async function renderCryptoChart() {
+        const marketPrices = await fetchMarketPrices();
+
+        const ctx = document.getElementById('cryptoChart').getContext('2d');
+        const data = {
+          labels: ['ETH', 'BTC', 'USDT', 'Cardano', 'Solana', 'Polkadot', 'Ripple', 'Binance Coin', 'Ethereum Classic', 'Chainlink'], // Add labels for the new cryptocurrencies
+          datasets: [{
+            label: 'Market Price (USD)',
+            data: [
+              marketPrices.ethereum.usd,
+              marketPrices.bitcoin.usd,
+              marketPrices.tether.usd,
+              marketPrices.cardano.usd,
+              marketPrices.solana.usd,
+              marketPrices.polkadot.usd,
+              marketPrices.ripple.usd,
+              marketPrices.binancecoin.usd,
+              marketPrices['ethereum-classic'].usd,
+              marketPrices.chainlink.usd
+            ],
+            backgroundColor: ['rgba(54, 162, 235, 0.5)', 'rgba(75, 192, 192, 0.5)', 'rgba(255, 205, 86, 0.5)', 'rgba(255, 99, 132, 0.5)', 'rgba(153, 102, 255, 0.5)', 'rgba(255, 159, 64, 0.5)', 'rgba(255, 0, 0, 0.5)', 'rgba(0, 128, 0, 0.5)', 'rgba(128, 0, 128, 0.5)', 'rgba(0, 0, 128, 0.5)'],
+            borderColor: ['rgba(54, 162, 235, 1)', 'rgba(75, 192, 192, 1)', 'rgba(255, 205, 86, 1)', 'rgba(255, 99, 132, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)', 'rgba(255, 0, 0, 1)', 'rgba(0, 128, 0, 1)', 'rgba(128, 0, 128, 1)', 'rgba(0, 0, 128, 1)'],
+            borderWidth: 1
+          }]
+        };
+
+        new Chart(ctx, {
+          type: 'bar', // Set the chart type to bar
+          data: data,
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true
+              }
+            }
+          }
+        });
+      }
+
+      window.onload = () => {
+        renderCryptoChart().catch(error => {
+          console.error('Error rendering crypto chart:', error);
+        });
+      }
+    </script>
+    <script>
+      function logout() {
+        window.location.href = "/logout"; // Redirect to the logout route when clicked
+      }
+    </script>
+</body>
+
+</html>

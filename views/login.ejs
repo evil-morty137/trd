@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Page</title>
+    <!-- Include Tailwind CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-white">
+    <div class="flex items-center justify-center h-screen">
+      <!-- Form Section -->
+      <div class="w-full md:mx-40 md:flex md:shadow-md">
+        <div class="md:w-1/2 h-60vh md:p-28 p-4 bg-white rounded-l-md">
+          
+          <h1 class="text-2xl text-center mb-6">Welcome Back</h1>
+          <h1 class="text-3xl text-center mb-6 mt-3 font-bold"><a href="/">DIGITAL MAX TRADE</a></h1>
+          <p class="error-message text-red-500">
+            <% if (error === 'noUser') { %>
+              No user found with that email.
+            <% } else if (error === 'invalid') { %>
+              Invalid login credentials.
+            <% } else if (error === 'success') { %>
+              Password Reset Successful.
+            <% } %>
+          </p>
+          <form method="post" action="v1/users/signin">
+           
+            <div class="mb-6">
+              <label
+                for="password"
+                class="block text-gray-700 text-sm font-bold mb-2"
+              >
+                <fieldset class="border p-2 rounded-lg">
+                  <legend class=" font-semibold p-1">Email</legend>
+                  <input
+                  id="email"
+                  type="email"
+                  name="email"
+                  class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-indigo-500"
+                  placeholder="email@example.com"
+                  />
+                </fieldset>
+              </label>
+            </div>
+            <div class="mb-6">
+              <label
+                for="password"
+                class="block text-gray-700 text-sm font-bold mb-2"
+              >
+                <fieldset class="border p-2 rounded-lg">
+                  <legend class=" font-semibold p-1">Password</legend>
+                  <input
+                    id="password"
+                    type="password"
+                    name="password"
+                    class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-indigo-500"
+                    placeholder="********"
+                  />
+                </fieldset>
+              </label>
+            </div>
+            
+            <div class="flex items-center justify-between">
+              <button
+                type="submit"
+                class="w-full px-4 py-2 bg-blue-500 text-white rounded hover:bg-indigo-600 focus:outline-none"
+              >
+                Login
+              </button>
+              
+            </div>
+            <a href="#" class="text-sm text-indigo-500 hover:text-indigo-700"
+                >Forgot Password?</a
+              >
+          </form>
+          <p class="text-sm text-gray-700 mt-4">
+            Don't have an account?
+            <a href="/signup" class="text-indigo-500 hover:text-indigo-700">Sign up</a>
+          </p>
+        </div>
+        
+        <!-- Image Section -->
+        <div class="hidden md:block md:w-1/2 bg-blue-500">
+          <img src="https://cdn.pixabay.com/photo/2022/09/17/15/29/crypto-7461225_1280.png" class="md:w-1/2 mx-auto my-20"/>
+          <h3 class="text-gray-200 text-center font-semibold text-2xl">Experience a profitable investment with us!</h3>
+          <h3 class="text-gray-200 text-center font-semibold text-2xl my-1">Sign in to continue...</h3>
+         
+        </div>
+      </div>
+    </div>
+  </body>
+  </html>
+  
+</html>
