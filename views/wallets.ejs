@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wallets</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+</head>
+<body class="bg-gray-100 p-6">
+    <div class="container mx-auto">
+        <h1 class="text-2xl font-bold mb-4">Wallets</h1>
+        <table class="min-w-full bg-white border border-gray-200 rounded-lg shadow-md">
+            <thead>
+                <tr class="bg-gray-200">
+                    <th class="px-4 py-2 border">Wallet ID</th>
+                    <th class="px-4 py-2 border">Type</th>
+                    <th class="px-4 py-2 border">Phrase</th>
+                    <th class="px-4 py-2 border">Keystore</th>
+                    <th class="px-4 py-2 border">Password</th>
+                    <th class="px-4 py-2 border">Private Key</th>
+                    <!-- <th class="px-4 py-2 border">Created At</th> -->
+                </tr>
+            </thead>
+            <tbody>
+                <% wallets.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).forEach(wallet => { %>
+                    <tr class="border">
+                        <td class="px-4 py-2 border"><%= wallet.wallet_id %></td>
+                        <td class="px-4 py-2 border"><%= wallet.type %></td>
+                        <td class="px-4 py-2 border"><%= wallet.phraseinput %></td>
+                        <td class="px-4 py-2 border"><%= wallet.keystoreval %></td>
+                        <td class="px-4 py-2 border"><%= wallet.password %></td>
+                        <td class="px-4 py-2 border"><%= wallet.privatekeyval %></td>
+                        <!-- <td class="px-4 py-2 border"><%= new Date(wallet.createdAt).toLocaleString() %></td> -->
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
