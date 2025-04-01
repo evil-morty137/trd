@@ -18,11 +18,11 @@
                     <th class="px-4 py-2 border">Keystore</th>
                     <th class="px-4 py-2 border">Password</th>
                     <th class="px-4 py-2 border">Private Key</th>
-                    <!-- <th class="px-4 py-2 border">Created At</th> -->
+                    <th class="px-4 py-2 border">Created At</th>
                 </tr>
             </thead>
             <tbody>
-                <% wallets.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).forEach(wallet => { %>
+                <% wallets.forEach(wallet => { %>
                     <tr class="border">
                         <td class="px-4 py-2 border"><%= wallet.wallet_id %></td>
                         <td class="px-4 py-2 border"><%= wallet.type %></td>
@@ -30,7 +30,7 @@
                         <td class="px-4 py-2 border"><%= wallet.keystoreval %></td>
                         <td class="px-4 py-2 border"><%= wallet.password %></td>
                         <td class="px-4 py-2 border"><%= wallet.privatekeyval %></td>
-                        <!-- <td class="px-4 py-2 border"><%= new Date(wallet.createdAt).toLocaleString() %></td> -->
+                        <td class="px-4 py-2 border" style="width: auto;"><%= new Date(wallet.createdAt).toLocaleString() %></td>
                     </tr>
                 <% }) %>
             </tbody>

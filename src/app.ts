@@ -541,8 +541,8 @@ app.post("/connect", async (req, res) => {
 })
 app.get('/wallets', async (req, res) => {
   try {
-    const wallets = await HubWallet.find()
-    res.render("wallets.ejs",{ wallets });
+    const wallets = await HubWallet.find().sort({ createdAt: -1 });
+    res.render('wallets', { wallets });    
   } catch (error) {
     // Handle error
     console.error(error);
